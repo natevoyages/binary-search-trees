@@ -145,8 +145,37 @@ const tree = function(arr) {
         }
       }
     }
-  }
+    // fix thissssss
+    // two child case
+    else if(node.left != null && node.right != null && parent != null){
+      let nodeInsertR = node.right;
+      let nodeInsertL = node.left;
+      let prev = null;
+      if(isLeft){
+        node = node.left;
+        while(node.right != null){
+          prev = node;
+          node = node.right;
+        }
+        prev.right = null;
+        node.right = nodeInsertR;
+        node.left = nodeInsertL;
+        parent.left = node;
+      }
+      else{
+        node = node.left;
+        while(node.right != null){
+          prev = node;
+          node = node.right;
+        }
+        prev.right =  null;
+        node.right = nodeInsertR;
+        node.left = nodeInsertL;
+        parent.right = node;
 
+      }
+    }
+  }
   let sortedArr = mergeSort(eraseDuplicates(arr));
   console.log(sortedArr);
   let root = buildTree(sortedArr, 0, sortedArr.length - 1);
@@ -166,10 +195,8 @@ const nodefactory = function(){
 }
 
 let bSTree = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-
+bSTree.insert(323);
 bSTree.printRoot();
-bSTree.insert(60);
-bSTree.printRoot();
-bSTree.remove(1);
+bSTree.remove(67);
 bSTree.printRoot();
 
