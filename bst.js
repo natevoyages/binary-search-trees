@@ -72,6 +72,37 @@ const tree = function(arr) {
     }
     return arr;
   }
+  const insert = function(value) {
+    let node = root;
+    let prevNode = null;
+    let isLeft = false;
+    while(node != null)
+    if (value > node.data){
+      prevNode = node;
+      node = node.right;
+      isLeft = false;
+    }
+    else{
+      prevNode = node;
+      node = node.left;
+      isLeft = true;
+    }
+    if(isLeft){
+      node = nodefactory();
+      node.data = value;
+      prevNode.left = node;
+    }
+    else{
+      node = nodefactory();
+      node.data = value;
+      prevNode.right = node;
+    }
+
+  }
+
+  const remove = function(value){
+
+  }
 
   let sortedArr = mergeSort(eraseDuplicates(arr));
   console.log(sortedArr);
@@ -80,7 +111,7 @@ const tree = function(arr) {
 
   return{printRoot, get root(){
     return root;
-  }};
+  }, insert};
 }
 
 
@@ -94,4 +125,6 @@ const nodefactory = function(){
 let bSTree = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
 bSTree.printRoot();
-console.log(3/2);
+bSTree.insert(60);
+bSTree.printRoot();
+console.log(bSTree.root);
