@@ -192,6 +192,15 @@ const tree = function(arr) {
   }
 
   const find = function(value){
+    let node = root; 
+    while(node.data != value){
+      if (node.data < value){
+        node =  node.right;
+      }
+      else if(node.data > value){
+        node =  node.left;
+      }
+    }
     return node;
   }
 
@@ -218,4 +227,5 @@ bSTree.insert(323);
 bSTree.printRoot();
 bSTree.remove(8);
 bSTree.printRoot();
+console.log(bSTree.find(324));
 
