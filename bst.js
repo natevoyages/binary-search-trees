@@ -125,6 +125,26 @@ const tree = function(arr) {
         parent.right = null;
       }
     }
+    // one child case
+    else if((node.left == null && node.right != null && parent != null) ||
+    (node.left != null && node.right == null && parent != null)){
+      if(node.left == null){
+        if(isLeft){
+          parent.left = node.right;
+        }
+        else{
+          parent.right = node.right;
+        }
+      }
+      else{
+        if(isLeft){
+          parent.left = node.left;
+        }
+        else{
+          parent.right = node.left;
+        }
+      }
+    }
   }
 
   let sortedArr = mergeSort(eraseDuplicates(arr));
@@ -150,6 +170,6 @@ let bSTree = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 bSTree.printRoot();
 bSTree.insert(60);
 bSTree.printRoot();
-bSTree.remove(3);
+bSTree.remove(1);
 bSTree.printRoot();
 
