@@ -347,7 +347,7 @@ const tree = function(arr) {
     traverse(root);
     }
   }
-  const height = function(node = this.root){ // function which accepts a node and returns its height. Height is defined as 
+  const height = function(node = root){ // function which accepts a node and returns its height. Height is defined as 
                                  //the number of edges in longest path from a given node to a leaf node.
     if (node == null){
       return -1;
@@ -364,7 +364,7 @@ const tree = function(arr) {
       return left;
     }
   }
-// fix this
+
   const depth = function(node){
     let comparisonNode = root; 
     let depth = 0;
@@ -381,6 +381,29 @@ const tree = function(arr) {
     return depth;
   }
   const isBalanced = function(){  
+    let maxHeight = height;
+    let minHeight = function(node = root){
+      if(node == null){
+        return -1;
+      }
+      let left = minHeight(node.left) + 1;
+      let right = minHeight(node.right) + 1;
+
+      if (left >= right){
+        return right;
+      }
+      else{
+        return left;
+      }
+    }
+    console.log(maxHeight());
+    console.log(minHeight());
+    if (maxHeight() - minHeight() > 1){
+      return false;
+    }
+    else{
+      return true;
+    }
 
   }
   const rebalance = function(){
@@ -419,9 +442,11 @@ console.log(bSTree.inorder());
 console.log(bSTree.postorder());
 console.log('height:', bSTree.height(bSTree.root));
 console.log('depth:', bSTree.depth(bSTree.root.right));
+console.log('Balanced?', bSTree.isBalanced());
 bSTree.insert(8000);
 bSTree.insert(9000);
 bSTree.printRoot();
 console.log(bSTree.levelOrder());
-console.log('height:', bSTree.height(bSTree.root.left));
+console.log('height:', bSTree.height());
 console.log('depth:', bSTree.depth(bSTree.root.right.right.right.right));
+console.log('Balanced?', bSTree.isBalanced());
