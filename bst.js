@@ -204,7 +204,7 @@ const tree = function(arr) {
     return node;
   }
   const levelOrder = function(fn = (data) => data){
-    let node = root;
+    /*let node = root;
     let arr = [];
     let queque = [node];
     while(queque.length > 0){
@@ -218,7 +218,30 @@ const tree = function(arr) {
         queque.push(node.right);
       }
       queque.shift();
+      return arr;
+    }*/
+    
+    let node = root;
+    let arr = [];
+    let queque = [node];
+    function traverse(node){
+      if (queque.length < 1){
+        return;
+      }
+      let newVal = fn(queque[0].data);
+      node = queque[0];
+      arr.push(newVal);
+      if (node.left != null){
+        queque.push(node.left);
+      }
+      if (node.right != null){
+        queque.push(node.right);
+      }
+      queque.shift();
+      traverse(queque[0]);
     }
+    traverse(node);
+
     
     return arr;
   }
@@ -249,3 +272,23 @@ bSTree.printRoot();
 console.log(bSTree.find(324));
 console.log(bSTree.levelOrder());
 
+
+
+/*     let node = root;
+    let arr = [];
+    let queque = [node];
+    function recursive(node){
+      if (queque.length < 0){
+        return;
+      }
+      if (node.left != null){
+        queque.push(node.left);
+      }
+      if (node.right != null){
+        queque.push(node.right);
+      }
+    queque.shift();
+    recursion(queque[0]);
+    }
+    }
+    */
