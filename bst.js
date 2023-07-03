@@ -407,7 +407,9 @@ const tree = function(arr) {
 
   }
   const rebalance = function(){
-
+    let arr = mergeSort(inorder());
+    console.log(arr);
+    root = buildTree(arr, 0, arr.length - 1);
   }
 
   let sortedArr = mergeSort(eraseDuplicates(arr));
@@ -419,7 +421,7 @@ const tree = function(arr) {
     return root;
   }, insert, remove, find, levelOrder,
     preorder, inorder, postorder, height,
-    depth, isBalanced};
+    depth, isBalanced, rebalance};
 }
 
 
@@ -433,7 +435,7 @@ const nodefactory = function(){
 let bSTree = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 //bSTree.insert(323);
 bSTree.printRoot();
-bSTree.remove(8);
+//bSTree.remove(8);
 //bSTree.printRoot();
 //console.log(bSTree.find(324));
 console.log(bSTree.levelOrder());
@@ -450,3 +452,6 @@ console.log(bSTree.levelOrder());
 console.log('height:', bSTree.height());
 console.log('depth:', bSTree.depth(bSTree.root.right.right.right.right));
 console.log('Balanced?', bSTree.isBalanced());
+bSTree.rebalance();
+console.log('Balanced?', bSTree.isBalanced());
+bSTree.printRoot();
