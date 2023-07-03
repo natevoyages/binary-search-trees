@@ -396,8 +396,6 @@ const tree = function(arr) {
         return left;
       }
     }
-    console.log(maxHeight());
-    console.log(minHeight());
     if (maxHeight() - minHeight() > 1){
       return false;
     }
@@ -408,12 +406,10 @@ const tree = function(arr) {
   }
   const rebalance = function(){
     let arr = mergeSort(inorder());
-    console.log(arr);
     root = buildTree(arr, 0, arr.length - 1);
   }
 
   let sortedArr = mergeSort(eraseDuplicates(arr));
-  console.log(sortedArr);
   let root = buildTree(sortedArr, 0, sortedArr.length - 1);
 
 
@@ -431,15 +427,15 @@ const nodefactory = function(){
   let right = null;
   return{data, left, right};
 }
-
+/*
 let bSTree = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 //bSTree.insert(323);
 bSTree.printRoot();
 //bSTree.remove(8);
 //bSTree.printRoot();
 //console.log(bSTree.find(324));
-console.log(bSTree.levelOrder());
-console.log(bSTree.preorder());
+//console.log(bSTree.levelOrder());
+//console.log(bSTree.preorder());
 console.log(bSTree.inorder());
 console.log(bSTree.postorder());
 console.log('height:', bSTree.height(bSTree.root));
@@ -455,3 +451,40 @@ console.log('Balanced?', bSTree.isBalanced());
 bSTree.rebalance();
 console.log('Balanced?', bSTree.isBalanced());
 bSTree.printRoot();
+*/
+/////                                         Driver Script                                         //////
+function randArr(){
+  let arr  =[];
+  let size = Math.floor(Math.random() * 8 + 13);
+  while (size > arr.length){
+    arr.push(Math.floor(Math.random() * 99));
+  }
+  return arr;
+}
+function randArrOverHund(){
+  let arr  =[];
+  let size = Math.floor(Math.random() * 6 + 4);
+  while (size > arr.length){
+    arr.push(Math.floor(Math.random() * 99 + 101));
+  }
+  return arr;
+}
+
+let bSTree = tree(randArr());
+console.log("Is Balanced:", bSTree.isBalanced());
+console.log(bSTree.levelOrder());
+console.log(bSTree.preorder());
+console.log(bSTree.inorder());
+console.log(bSTree.postorder());
+
+let biggerArr = randArrOverHund();
+
+biggerArr.forEach((element)=> bSTree.insert(element));
+console.log("Is Balanced:", bSTree.isBalanced());
+
+bSTree.rebalance();
+console.log("Is Balanced:", bSTree.isBalanced());
+console.log(bSTree.levelOrder());
+console.log(bSTree.preorder());
+console.log(bSTree.inorder());
+console.log(bSTree.postorder());
