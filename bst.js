@@ -203,6 +203,25 @@ const tree = function(arr) {
     }
     return node;
   }
+  const levelOrder = function(fn = (data) => data){
+    let node = root;
+    let arr = [];
+    let queque = [node];
+    while(queque.length > 0){
+      let newVal = fn(queque[0].data);
+      node = queque[0];
+      arr.push(newVal);
+      if (node.left != null){
+        queque.push(node.left);
+      }
+      if (node.right != null){
+        queque.push(node.right);
+      }
+      queque.shift();
+    }
+    
+    return arr;
+  }
 
   let sortedArr = mergeSort(eraseDuplicates(arr));
   console.log(sortedArr);
@@ -211,7 +230,7 @@ const tree = function(arr) {
 
   return{printRoot, get root(){
     return root;
-  }, insert, remove, find};
+  }, insert, remove, find, levelOrder};
 }
 
 
@@ -228,4 +247,5 @@ bSTree.printRoot();
 bSTree.remove(8);
 bSTree.printRoot();
 console.log(bSTree.find(324));
+console.log(bSTree.levelOrder());
 
