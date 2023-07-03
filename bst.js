@@ -366,11 +366,17 @@ const tree = function(arr) {
   while (nodeNum > totalLength(nodeHeight)){
     nodeHeight++; 
   }
-  let diff = totalHeight - nodeHeight;
-  return `Height: ${diff}`;
+  let height = totalHeight - nodeHeight;
+  return height;
 
   }
-  const depth = function(){
+  const depth = function(node){
+    let totalHeight = height(root);
+    let nodeHeight = height(node);
+    let depth = totalHeight - nodeHeight;
+
+    return depth;
+
 
   }
   const isBalance = function(){
@@ -388,7 +394,8 @@ const tree = function(arr) {
   return{printRoot, get root(){
     return root;
   }, insert, remove, find, levelOrder,
-    preorder, inorder, postorder, height};
+    preorder, inorder, postorder, height,
+    depth};
 }
 
 
@@ -409,11 +416,5 @@ console.log(bSTree.levelOrder());
 console.log(bSTree.preorder());
 console.log(bSTree.inorder());
 console.log(bSTree.postorder());
-console.log(bSTree.height(bSTree.root.left.left));
-
-     // IMPOTANT!!!!!!!!!!!!!!!!!!!!!
-// rework levelOrder inorder preorder postorder to have function pass node
-//
-//             solution
-// have parameter fn return null an have logic pass an array of th bst values
-// have else case pass node as paramater for callback fn  for else statement
+console.log('height:', bSTree.height(bSTree.root.right));
+console.log('depth:', bSTree.depth(bSTree.root.right));
