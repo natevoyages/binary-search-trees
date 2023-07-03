@@ -264,11 +264,22 @@ const tree = function(arr) {
     return arr;
 
   }
-  const inorder = function(/*fn = (a) => a*/){
+  const inorder = function(fn = (a) => a){
     // LDR
     // 1. Visit left subtree
     // 2. Access Data from root
     // 3. Visit right subtree
+
+    let arr = [];
+
+    function traverse(node){
+      if(node == null){ return; }
+      traverse(node.left);
+      arr.push(fn(node.data));
+      traverse(node.right);
+    }
+    traverse(root);
+    return arr;
 
   }
   const postorder = function(/*fn = (a) => a*/){
@@ -287,7 +298,7 @@ const tree = function(arr) {
   return{printRoot, get root(){
     return root;
   }, insert, remove, find, levelOrder,
-    preorder};
+    preorder, inorder};
 }
 
 
@@ -306,5 +317,6 @@ bSTree.printRoot();
 //console.log(bSTree.find(324));
 console.log(bSTree.levelOrder());
 console.log(bSTree.preorder());
+console.log(bSTree.inorder());
 
 
