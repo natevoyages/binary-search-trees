@@ -471,11 +471,11 @@ function randArrOverHund(){
 }
 
 let bSTree = tree(randArr());
-console.log("Is Balanced:", bSTree.isBalanced());
-console.log(bSTree.levelOrder());
-console.log(bSTree.preorder());
-console.log(bSTree.inorder());
-console.log(bSTree.postorder());
+console.log('Is Balanced:', bSTree.isBalanced());
+console.log('LevelOrder', bSTree.levelOrder());
+console.log('Preorder', bSTree.preorder());
+console.log('Inorder',bSTree.inorder());
+console.log('Postorder',bSTree.postorder());
 
 let biggerArr = randArrOverHund();
 
@@ -483,8 +483,8 @@ biggerArr.forEach((element)=> bSTree.insert(element));
 console.log("Is Balanced:", bSTree.isBalanced());
 
 bSTree.rebalance();
-console.log("Is Balanced:", bSTree.isBalanced());
-console.log(bSTree.levelOrder());
-console.log(bSTree.preorder());
-console.log(bSTree.inorder());
-console.log(bSTree.postorder());
+console.log('Is Balanced:', bSTree.isBalanced());
+console.log('LevelOrder', bSTree.levelOrder());
+console.log('Preorder', bSTree.preorder());
+console.log('Inorder',bSTree.inorder());
+console.log('Postorder',bSTree.postorder());
