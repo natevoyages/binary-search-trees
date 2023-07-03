@@ -347,39 +347,40 @@ const tree = function(arr) {
     traverse(root);
     }
   }
-  const height = function(node){ // function which accepts a node and returns its height. Height is defined as 
+  const height = function(node = this.root){ // function which accepts a node and returns its height. Height is defined as 
                                  //the number of edges in longest path from a given node to a leaf node.
-  let nodeVal = node.data;
-  let levelArray = levelOrder();
-  let totalHeight = 0;
-  let nodeHeight = 0;
-  let nodeNum = levelArray.findIndex((element) => element == nodeVal) + 1;
-  function totalLength(n){
-    if (n == 0){
-      return 1;
+    if (node == null){
+      return -1;
     }
-    return (2 ** n) + totalLength( n - 1);
+    let left = height(node.left) + 1;
+    let right = height(node.right) + 1;
+    if (left > right){
+      return left;
+    }
+    else if (left < right){
+      return right;
+    }
+    else{
+      return left;
+    }
   }
-  while (levelArray.length > totalLength(totalHeight)){
-    totalHeight++;
-  }
-  while (nodeNum > totalLength(nodeHeight)){
-    nodeHeight++; 
-  }
-  let height = totalHeight - nodeHeight;
-  return height;
-
-  }
+// fix this
   const depth = function(node){
-    let totalHeight = height(root);
-    let nodeHeight = height(node);
-    let depth = totalHeight - nodeHeight;
-
+    let comparisonNode = root; 
+    let depth = 0;
+    while(comparisonNode.data != node.data){
+      if (comparisonNode.data < node.data){
+        comparisonNode =  comparisonNode.right;
+        depth++;
+      }
+      else if(comparisonNode.data > node.data){
+        comparisonNode =  comparisonNode.left;
+        depth++;
+      }
+    }
     return depth;
-
-
   }
-  const isBalance = function(){
+  const isBalanced = function(){  
 
   }
   const rebalance = function(){
@@ -395,7 +396,7 @@ const tree = function(arr) {
     return root;
   }, insert, remove, find, levelOrder,
     preorder, inorder, postorder, height,
-    depth};
+    depth, isBalanced};
 }
 
 
@@ -409,12 +410,18 @@ const nodefactory = function(){
 let bSTree = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 //bSTree.insert(323);
 bSTree.printRoot();
-//bSTree.remove(8);
+bSTree.remove(8);
 //bSTree.printRoot();
 //console.log(bSTree.find(324));
 console.log(bSTree.levelOrder());
 console.log(bSTree.preorder());
 console.log(bSTree.inorder());
 console.log(bSTree.postorder());
-console.log('height:', bSTree.height(bSTree.root.right));
+console.log('height:', bSTree.height(bSTree.root));
 console.log('depth:', bSTree.depth(bSTree.root.right));
+bSTree.insert(8000);
+bSTree.insert(9000);
+bSTree.printRoot();
+console.log(bSTree.levelOrder());
+console.log('height:', bSTree.height(bSTree.root.left));
+console.log('depth:', bSTree.depth(bSTree.root.right.right.right.right));
