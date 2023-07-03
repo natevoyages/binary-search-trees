@@ -263,7 +263,7 @@ const tree = function(arr) {
     return arr;*/
   }
 
-  const preorder = function(fn = (a) => a){
+  const preorder = function(fn = () => null){
     //DLR
     // 1. Access Data from root
     // 2. Visit left subtree
@@ -273,7 +273,7 @@ const tree = function(arr) {
 
     function traverse(node){
       if(node == null){ return; }
-      arr.push(fn(node.data));
+      arr.push(node.data);
       traverse(node.left);
       traverse(node.right);
     }
@@ -332,7 +332,7 @@ const tree = function(arr) {
       if(node == null){ return; }
       traverse(node.left);
       traverse(node.right);
-      arr.push(fn(node.data));
+      arr.push(node.data);
     }
     traverse(root);
     return arr;
@@ -349,15 +349,25 @@ const tree = function(arr) {
   }
   const height = function(node){ // function which accepts a node and returns its height. Height is defined as 
                                  //the number of edges in longest path from a given node to a leaf node.
+  let nodeVal = node.data;
   let levelArray = levelOrder();
   let totalHeight = 0;
-  while (levelArray.length > 2 ** totalHeight){
+  let nodeHeight = 0;
+  let nodeNum = levelArray.findIndex((element) => element == nodeVal) + 1;
+  function totalLength(n){
+    if (n == 0){
+      return 1;
+    }
+    return (2 ** n) + totalLength( n - 1);
+  }
+  while (levelArray.length > totalLength(totalHeight)){
     totalHeight++;
   }
-
-  node.value;
-
-  return totalHeight; // fix this
+  while (nodeNum > totalLength(nodeHeight)){
+    nodeHeight++; 
+  }
+  let diff = totalHeight - nodeHeight;
+  return `Height: ${diff}`;
 
   }
   const depth = function(){
@@ -399,7 +409,7 @@ console.log(bSTree.levelOrder());
 console.log(bSTree.preorder());
 console.log(bSTree.inorder());
 console.log(bSTree.postorder());
-console.log(bSTree.height(bSTree.root));
+console.log(bSTree.height(bSTree.root.left.left));
 
      // IMPOTANT!!!!!!!!!!!!!!!!!!!!!
 // rework levelOrder inorder preorder postorder to have function pass node
