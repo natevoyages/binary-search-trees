@@ -203,14 +203,14 @@ const tree = function(arr) {
     }
     return node;
   }
-  const levelOrder = function(fn = (data) => data){
+  const levelOrder = function(fn = () => null){
+    if (fn() === null){
     let node = root;
     let arr = [];
     let queque = [node];
     while(queque.length > 0){
-      let newVal = fn(queque[0].data);
       node = queque[0];
-      arr.push(newVal);
+      arr.push(node.data);
       if (node.left != null){
         queque.push(node.left);
       }
@@ -219,6 +219,23 @@ const tree = function(arr) {
       }
       queque.shift();
     }
+      return arr;
+  }
+  else{
+    let node = root;
+    let queque = [node];
+    while(queque.length > 0){
+      fn(queque[0]);
+      node = queque[0];
+      if (node.left != null){
+        queque.push(node.left);
+      }
+      if (node.right != null){
+        queque.push(node.right);
+      }
+      queque.shift();
+    }
+  }
     // recursive version
     /*
     let node = root;
@@ -244,7 +261,6 @@ const tree = function(arr) {
 
     
     return arr;*/
-    return arr;
   }
 
   const preorder = function(fn = (a) => a){
@@ -252,6 +268,7 @@ const tree = function(arr) {
     // 1. Access Data from root
     // 2. Visit left subtree
     // 3. Visit right subtree
+    if(fn() === null){
     let arr = [];
 
     function traverse(node){
@@ -262,32 +279,53 @@ const tree = function(arr) {
     }
     traverse(root);
     return arr;
+    }
+    else{
+      function traverse(node){
+      if(node == null){ return; }
+      fn(node);
+      traverse(node.left);
+      traverse(node.right);
+    }
+    traverse(root);
+    }
 
   }
-  const inorder = function(fn = (a) => a){
+  const inorder = function(fn = (x) => null){
     // LDR
     // 1. Visit left subtree
     // 2. Access Data from root
     // 3. Visit right subtree
-
+    if(fn() === null){
     let arr = [];
 
     function traverse(node){
       if(node == null){ return; }
       traverse(node.left);
-      arr.push(fn(node.data));
+      arr.push(node.data);
       traverse(node.right);
     }
     traverse(root);
     return arr;
+    }
+
+    else{
+      function traverse(node){
+      if(node == null){ return; }
+      traverse(node.left);
+      fn(node);
+      traverse(node.right);
+      }
+    traverse(root);
+    }
 
   }
-  const postorder = function(fn = (a) => a){
+  const postorder = function(fn = () => null){
     //LRD
     // 1. Visit left subtree
     // 2. Visit right subtree
     // 3. Access Data from root
-
+    if(fn() === null){
     let arr = [];
 
     function traverse(node){
@@ -298,6 +336,37 @@ const tree = function(arr) {
     }
     traverse(root);
     return arr;
+    }
+    else{
+      function traverse(node){
+      if(node == null){ return; }
+      traverse(node.left);
+      traverse(node.right);
+      fn(node);
+    }
+    traverse(root);
+    }
+  }
+  const height = function(node){ // function which accepts a node and returns its height. Height is defined as 
+                                 //the number of edges in longest path from a given node to a leaf node.
+  let levelArray = levelOrder();
+  let totalHeight = 0;
+  while (levelArray.length > 2 ** totalHeight){
+    totalHeight++;
+  }
+
+  node.value;
+
+  return totalHeight; // fix this
+
+  }
+  const depth = function(){
+
+  }
+  const isBalance = function(){
+
+  }
+  const rebalance = function(){
 
   }
 
@@ -309,7 +378,7 @@ const tree = function(arr) {
   return{printRoot, get root(){
     return root;
   }, insert, remove, find, levelOrder,
-    preorder, inorder, postorder};
+    preorder, inorder, postorder, height};
 }
 
 
@@ -330,5 +399,11 @@ console.log(bSTree.levelOrder());
 console.log(bSTree.preorder());
 console.log(bSTree.inorder());
 console.log(bSTree.postorder());
+console.log(bSTree.height(bSTree.root));
 
-
+     // IMPOTANT!!!!!!!!!!!!!!!!!!!!!
+// rework levelOrder inorder preorder postorder to have function pass node
+//
+//             solution
+// have parameter fn return null an have logic pass an array of th bst values
+// have else case pass node as paramater for callback fn  for else statement
