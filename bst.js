@@ -204,7 +204,7 @@ const tree = function(arr) {
     return node;
   }
   const levelOrder = function(fn = (data) => data){
-    /*let node = root;
+    let node = root;
     let arr = [];
     let queque = [node];
     while(queque.length > 0){
@@ -218,9 +218,9 @@ const tree = function(arr) {
         queque.push(node.right);
       }
       queque.shift();
-      return arr;
-    }*/
-    
+    }
+    // recursive version
+    /*
     let node = root;
     let arr = [];
     let queque = [node];
@@ -243,7 +243,40 @@ const tree = function(arr) {
     traverse(node);
 
     
+    return arr;*/
     return arr;
+  }
+
+  const preorder = function(fn = (a) => a){
+    //DLR
+    // 1. Access Data from root
+    // 2. Visit left subtree
+    // 3. Visit right subtree
+    let arr = [];
+
+    function traverse(node){
+      if(node == null){ return; }
+      arr.push(fn(node.data));
+      traverse(node.left);
+      traverse(node.right);
+    }
+    traverse(root);
+    return arr;
+
+  }
+  const inorder = function(/*fn = (a) => a*/){
+    // LDR
+    // 1. Visit left subtree
+    // 2. Access Data from root
+    // 3. Visit right subtree
+
+  }
+  const postorder = function(/*fn = (a) => a*/){
+    //LRD
+    // 1. Visit left subtree
+    // 2. Visit right subtree
+    // 3. Access Data from root
+
   }
 
   let sortedArr = mergeSort(eraseDuplicates(arr));
@@ -253,7 +286,8 @@ const tree = function(arr) {
 
   return{printRoot, get root(){
     return root;
-  }, insert, remove, find, levelOrder};
+  }, insert, remove, find, levelOrder,
+    preorder};
 }
 
 
@@ -265,30 +299,12 @@ const nodefactory = function(){
 }
 
 let bSTree = tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-bSTree.insert(323);
+//bSTree.insert(323);
 bSTree.printRoot();
-bSTree.remove(8);
-bSTree.printRoot();
-console.log(bSTree.find(324));
+//bSTree.remove(8);
+//bSTree.printRoot();
+//console.log(bSTree.find(324));
 console.log(bSTree.levelOrder());
+console.log(bSTree.preorder());
 
 
-
-/*     let node = root;
-    let arr = [];
-    let queque = [node];
-    function recursive(node){
-      if (queque.length < 0){
-        return;
-      }
-      if (node.left != null){
-        queque.push(node.left);
-      }
-      if (node.right != null){
-        queque.push(node.right);
-      }
-    queque.shift();
-    recursion(queque[0]);
-    }
-    }
-    */
